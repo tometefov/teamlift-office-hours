@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SlotStatus {
+  AVAILABLE
+  BOOKED
+}
+
+model Slot {
+  id              String     @id @default(cuid())
+  startsAt        DateTime
+  durationMinutes Int
+  status          SlotStatus @default(AVAILABLE)
+  createdAt       DateTime   @default(now())
+  booking         Booking?
+
+  @@index([startsAt])
+}
+
+model Booking {
+  id             String   @id @default(cuid())
+  // UNIQUE: a slot can have at most one booking. The database itself
+  // rejects a second booking, even if two requests arrive at the same time.
+  slotId         String   @unique
+  slot           Slot     @relation(fields: [slotId], references: [id], onDelete: Cascade)
+  name           String
+  email          String
+  note           String
+  aiConfirmation String?
+  aiCoachSummary String?
+  createdAt      DateTime @default(now())
+}
