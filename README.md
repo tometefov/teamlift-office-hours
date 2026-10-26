@@ -1,5 +1,8 @@
 # Office Hours for AI Champions
 
+Live demo: https://teamlift-office-hours.vercel.app
+The backend runs on Render's free tier, so the first request after a while can take up to a minute while the server wakes up.
+
 My submission for the TeamLift Product Engineer challenge.
 
 A coach publishes 1:1 office-hour slots. An AI champion picks one, books it with his name and email, and writes why he needs that consultation block, practically few lines about what they're stuck on. Once a slot is booked nobody else can take it. Gemini then writes a short confirmation for the champion in relation to the written line and a prep note for the coach.
@@ -80,10 +83,18 @@ I used Claude (Anthropic) to brainstorm the concept and to write most of the cod
 
 ## What I would add next
 
-- login for the coach/AI champion
-- cancel/reschedule option
-- send the confirmation by email with a calendar invite
-- Google Calendar sync so slots that clash with existing events are hidden
+What would make this useful for a real coaching program:
+- after each session the coach writes a few notes, and Gemini turns them into a short follow-up for the champion with 2-3 action items
+- the AI prep note uses the champion's earlier sessions, so the coach sees progress over time and not just one problem
+- group recurring problems across all bookings ("5 champions stuck on prompt quality this month"), so coaches know which workshop to run next
+- a reminder email the day before, with a short "come prepared" checklist based on what the champion wrote
+- a short feedback question after the session (was it useful 1-5), so coaches can see which sessions help the most
+- several coaches, where the AI suggests the coach whose skills best match what the champion is stuck on
+
+Basics I skipped to keep the scope small:
+- login for coaches and champions
+- cancel and reschedule
+- confirmation email with a calendar invite, and Google Calendar sync so clashing slots are hidden
 - recurring availability ("every Tuesday 14:00 to 16:00")
-- tests, especially one that fires two bookings at the same time
 - a month calendar view and a time zone picker
+- tests, especially one that fires two bookings at the same time
